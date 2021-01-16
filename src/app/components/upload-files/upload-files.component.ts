@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable, pipe } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-upload-files',
   templateUrl: './upload-files.component.html',
@@ -23,7 +24,7 @@ export class UploadFilesComponent{
     this.selectedFiles = event.target.files;
   }
 
-  downloadPdf(){
+  downloadPdf(form: NgForm){
     this.currentFile = this.selectedFiles.item(0);
     this.fileName= this.currentFile.name;
     this.uploadService.downloadPdf(this.currentFile).subscribe(
@@ -38,6 +39,7 @@ export class UploadFilesComponent{
           link.download = (this.fileName).slice(0, -5)+".pdf";
           link.click();
           this.currentFile=undefined;
+          form.resetForm();
           }
       },
       err => {

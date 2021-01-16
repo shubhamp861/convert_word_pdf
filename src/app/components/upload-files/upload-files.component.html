@@ -10,11 +10,13 @@
       {{ progress }}%
     </div>
   </div>
+  <form  #myForm="ngForm">
+    <label class="btn btn-default">
+      <input type="file" (change)="selectFile($event)" ngModel name="fileuploadtest"/>
+    </label>
+  </form>
   
-  <label class="btn btn-default">
-    <input type="file" (change)="selectFile($event)" />
-  </label>
   
-  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="downloadPdf()">
+  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="downloadPdf(myForm)">
     Upload
   </button>
