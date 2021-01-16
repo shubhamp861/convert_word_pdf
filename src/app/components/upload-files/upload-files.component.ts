@@ -17,37 +17,15 @@ export class UploadFilesComponent{
   fileName;
 
   constructor(private uploadService: UploadFileService,private http: HttpClient) { 
-  //  this.uploadService.get().subscribe((res)=>{console.log(res)});
   }
  
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
- 
-  upload() {
-    this.progress = 0;
-    this.currentFile = this.selectedFiles.item(0);
-    this.fileName= this.currentFile.name;
-    this.uploadService.upload(this.currentFile).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.res = event.body[0];
-          console.log(event.body[0]);
-          }
-      },
-      err => {
-        this.progress = 0;
-        this.currentFile = undefined;
-      });
-  
-    this.selectedFiles = undefined;
-  }
+
   downloadPdf(){
     this.currentFile = this.selectedFiles.item(0);
     this.fileName= this.currentFile.name;
-    console.log(this.fileName);
     this.uploadService.downloadPdf(this.currentFile).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -65,23 +43,5 @@ export class UploadFilesComponent{
         this.progress = 0;
         this.currentFile = undefined;
       });
-       // var fileURL = URL.createObjectURL(file);
-      // window.open(fileURL);}
-
-}
-uploadandDownload()
-{
-  this.currentFile = this.selectedFiles.item(0);
-  this.fileName= this.currentFile.name;
-  this.uploadService.uploadandDownload(this.currentFile).subscribe( (res: any) =>{
-    let file = new Blob([res], { type: 'application/pdf' });
-    var downloadURL = window.URL.createObjectURL(file);
-    var link = document.createElement('a');
-    link.href = downloadURL;
-    link.download = this.fileName+".pdf";
-    link.click();
-   } );
-
-  this.selectedFiles = undefined;
-}
+    }
 }

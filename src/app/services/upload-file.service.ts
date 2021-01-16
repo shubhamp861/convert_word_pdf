@@ -13,15 +13,15 @@ export class UploadFileService {
   
   constructor(private http: HttpClient) { }
 
-  upload(file: File): Observable<HttpEvent<any>> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    const req = new HttpRequest('POST', `${this.url}/upload`, formData, {
-      reportProgress: true,
-      responseType: 'arraybuffer' as 'json'
-    });
-     return this.http.request(req);
-  }
+  // upload(file: File): Observable<HttpEvent<any>> {
+  //   const formData: FormData = new FormData();
+  //   formData.append('file', file);
+  //   const req = new HttpRequest('POST', `${this.url}/upload`, formData, {
+  //     reportProgress: true,
+  //     responseType: 'arraybuffer' as 'json'
+  //   });
+  //    return this.http.request(req);
+  // }
   
    downloadPdf(file: File): Observable<HttpEvent<any>>{
     const formData: FormData = new FormData();
@@ -30,21 +30,21 @@ export class UploadFileService {
       reportProgress: true,
       responseType: 'arraybuffer' as 'json'
     });
-     return this.http.request(req);
+     return this.http.request(req);}
 
-     } 
-  uploadandDownload(file: File)
-     {
-      const formData: FormData = new FormData();
-      formData.append('file', file);
-      // const req = new HttpRequest('POST', `${this.url}/upload`, formData, {
-      //   responseType: 'arraybuffer' as 'json'
-      // });
-      //  return this.http.request(req);
-       return this.http.post(this.url+"/upload",formData,{
-          responseType: 'arraybuffer' as 'json'
-        });
+  //    } 
+  // uploadandDownload(file: File)
+  //    {
+  //     const formData: FormData = new FormData();
+  //     formData.append('file', file);
+  //     // const req = new HttpRequest('POST', `${this.url}/upload`, formData, {
+  //     //   responseType: 'arraybuffer' as 'json'
+  //     // });
+  //     //  return this.http.request(req);
+  //      return this.http.post(this.url+"/upload",formData,{
+  //         responseType: 'arraybuffer' as 'json'
+  //       });
     
-     }
+  //    }
      
 }
