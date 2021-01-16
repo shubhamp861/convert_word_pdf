@@ -37,6 +37,7 @@ export class UploadFilesComponent{
           link.href = downloadURL;
           link.download = (this.fileName).slice(0, -5)+".pdf";
           link.click();
+          this.currentFile=undefined;
           }
       },
       err => {
