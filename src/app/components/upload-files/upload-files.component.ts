@@ -5,17 +5,19 @@ import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-upload-files',
-  templateUrl: './upload-files.component.html',
-  styleUrls: ['./upload-files.component.css']
+  templateUrl: './upload-files.component.html'
 })
 export class UploadFilesComponent{
 
   selectedFiles: FileList;
   currentFile: File;
-  progress = 0;
+  progress;
   res;
   fileInfos: Observable<any>;
   fileName;
+  message;
+  pdfFile;
+  removebtn=true;
 
   constructor(private uploadService: UploadFileService,private http: HttpClient) { 
   }
@@ -24,27 +26,51 @@ export class UploadFilesComponent{
     this.selectedFiles = event.target.files;
   }
 
-  downloadPdf(form: NgForm){
+  uploadFileToServer(form: NgForm){
+    console.log(form);
     this.currentFile = this.selectedFiles.item(0);
     this.fileName= this.currentFile.name;
+    this.message="Uploading file to server ";
     this.uploadService.downloadPdf(this.currentFile).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          let file = new Blob([event.body], { type: 'application/pdf' });
-          var downloadURL = window.URL.createObjectURL(file);
-          var link = document.createElement('a');
-          link.href = downloadURL;
-          link.download = (this.fileName).slice(0, -5)+".pdf";
-          link.click();
-          this.currentFile=undefined;
+          // let file = new Blob([event.body], { type: 'application/pdf' });
+
           form.resetForm();
+          this.pdfFile = new Blob([event.body], { type: 'application/pdf' });
+          this.progress='';
+          this.message="Ready to Downloaded.";
+          this.removebtn=false;
+
+          // var downloadURL = window.URL.createObjectURL(file);
+          // var link = document.createElement('a');
+          // link.href = downloadURL;
+          // link.download = (this.fileName).slice(0, -5)+".pdf";
+          // link.click();
+          // this.currentFile=undefined;
+          // form.resetForm();
+          // this.progress='';
+          // this.message="Ready to Downloaded.";form: NgForm
+       
           }
       },
       err => {
         this.progress = 0;
         this.currentFile = undefined;
       });
+    }
+
+    downloadpdf(){
+      var downloadURL = window.URL.createObjectURL(this.pdfFile);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = (this.fileName).slice(0, -5)+".pdf";
+      link.click();
+      this.currentFile=undefined;
+     // form.resetForm();
+     this.message="Downloaded.";
+     this.removebtn=true;
     }
 }

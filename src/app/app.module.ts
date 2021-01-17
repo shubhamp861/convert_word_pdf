@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    UploadFilesComponent
+    UploadFilesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
