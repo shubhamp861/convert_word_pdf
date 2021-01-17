@@ -12,12 +12,14 @@
           <label for="hero-field" class="leading-7 text-sm text-gray-600">Drop your file here.</label>
           <form  #myForm="ngForm">
             <input type="file" id="hero-field" (change)="selectFile($event)" name="hero-field"  ngModel
-            class="w-full bg-gray-100 rounded border bg-opacity-50 border-gray-300 focus:ring-2 focus:ring-blue-200 focus:bg-transparent focus:border-blue-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            >
           </form>
           </div>
-        <button class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" (click)="uploadFileToServer(myForm)"  [disabled]="!selectedFiles" *ngIf="removebtn">Upload</button>
+        </div>
+        <hr/><hr/><hr/><hr/>
+        <button class=" text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" (click)="uploadFileToServer(myForm)"  [disabled]="!selectedFiles" *ngIf="removebtn">Upload</button>
         <button class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" (click)="downloadpdf()" *ngIf="!removebtn">Download</button>
-      </div>
+      
       <p class="text-sm mt-2 text-gray-500 mb-8 w-full" style="color:#FF0000" *ngIf="message">{{message}}
         <span *ngIf="progress"> {{ progress }}%</span>
        </p>

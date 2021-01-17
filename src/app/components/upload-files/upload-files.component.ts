@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UploadFilesComponent{
 
-  selectedFiles: FileList;
+  selectedFiles: FileList=undefined;
   currentFile: File;
   progress;
   res;
