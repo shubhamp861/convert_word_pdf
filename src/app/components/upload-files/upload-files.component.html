@@ -19,7 +19,7 @@
         <hr/><hr/><hr/><hr/>
         <button class=" text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" (click)="uploadFileToServer(myForm)"  [disabled]="!selectedFiles" *ngIf="removebtn">Upload</button>
         <button class="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg" (click)="downloadpdf()" *ngIf="!removebtn">Download</button>
-      
+        <span *ngIf="message=='Processing file'" class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-2 w-2 mt-1"></span>
       <p class="text-sm mt-2 text-gray-500 mb-8 w-full" style="color:#FF0000" *ngIf="message">{{message}}
         <span *ngIf="progress"> {{ progress }}%</span>
        </p>

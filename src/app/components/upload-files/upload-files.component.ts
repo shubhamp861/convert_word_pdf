@@ -5,7 +5,8 @@ import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-upload-files',
-  templateUrl: './upload-files.component.html'
+  templateUrl: './upload-files.component.html',
+  styleUrls: ['./upload-files.component.css']
 })
 export class UploadFilesComponent{
 
@@ -27,7 +28,7 @@ export class UploadFilesComponent{
   }
 
   uploadFileToServer(form: NgForm){
-    console.log(form);
+    //console.log(form);
     this.currentFile = this.selectedFiles.item(0);
     this.fileName= this.currentFile.name;
     this.message="Uploading file to server ";
@@ -35,12 +36,15 @@ export class UploadFilesComponent{
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
+         if(this.progress ==100)
+         {
+           this.message="Processing file";
+           this.progress='';
+         }
         } else if (event instanceof HttpResponse) {
           // let file = new Blob([event.body], { type: 'application/pdf' });
-
           form.resetForm();
           this.pdfFile = new Blob([event.body], { type: 'application/pdf' });
-          this.progress='';
           this.message="Ready to Downloaded.";
           this.removebtn=false;
 
